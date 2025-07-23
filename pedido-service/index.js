@@ -6,20 +6,36 @@ app.use(express.json());
 
 let canal;
 
-async function conectarRabbit() {
-  const conn = await amqp.connect('amqp://rabbitmq');
-  canal = await conn.createChannel();
-  await canal.assertQueue('fila_pedidos');
+// Conectar ao RabbitMQ
+async function conectarFila() {
+  try {
+    const conexao = await amqp.connect('amqp://rabbitmq');
+    canal = await conexao.createChannel();
+    await canal.assertQueue('fila_pedidos');
+    console.log('[✔] Conectado ao RabbitMQ e fila criada');
+  } catch (erro) {
+    console.error('[✖] Erro ao conectar no RabbitMQ:', erro.message);
+    setTimeout(conectarFila, 5000); // tenta de novo depois
+  }
 }
 
+// Endpoint para receber pedidos
 app.post('/pedido', async (req, res) => {
   const pedido = req.body;
-  console.log('Recebido:', pedido);
-  canal.sendToQueue('fila_pedidos', Buffer.from(JSON.stringify(pedido)));
+
+  if (!pedido || !pedido.produto) {
+    return res.status(400).send({ erro: 'Pedido inválido' });
+  }
+
+  const mensagem = Buffer.from(JSON.stringify(pedido));
+  canal.sendToQueue('fila_pedidos', mensagem);
+  console.log('[→] Pedido enviado à fila:', pedido);
+
   res.status(201).send({ status: 'Pedido publicado na fila' });
 });
 
+// Start
 app.listen(4000, () => {
-  console.log('Pedido Service na porta 4000');
-  conectarRabbit();
+  console.log('[🚀] Pedido Service na porta 4000');
+  conectarFila();
 });
