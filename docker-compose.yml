@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "3000:3000"
+    depends_on:
+      - pedido-service
+
+  pedido-service:
+    build: ./pedido-service
+    ports:
+      - "4000:4000"
+    depends_on:
+      - rabbitmq
