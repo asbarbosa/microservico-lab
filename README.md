@@ -1,6 +1,6 @@
 # 🧪 Microserviço Lab – Sistema de Pedidos com RabbitMQ
 
-Este projeto é um laboratório prático para estudar **arquitetura de microserviços**, com foco em comunicação assíncrona usando **RabbitMQ**, **Docker** e **Node.js** (e futuramente C#/.NET e SAP HANA).
+Este projeto é um laboratório prático para estudar **arquitetura de microserviços**, com foco em comunicação assíncrona usando **RabbitMQ**, **Docker** e **Node.js**
 
 ## 📦 Estrutura Inicial
 
@@ -16,7 +16,7 @@ Cliente → API Gateway → Pedido Service → (RabbitMQ) → Pagamento Service 
 - Docker e Docker Compose
 - RabbitMQ (fila de mensagens)
 - C#/.NET (em breve)
-- SAP HANA (em breve)
+
 
 ## 🧱 Serviços
 
@@ -41,28 +41,12 @@ Cliente → API Gateway → Pedido Service → (RabbitMQ) → Pagamento Service 
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/microservico-lab.git
+git clone https://github.com/asbarbosa/microservico-lab.git
 cd microservico-lab
 
 # Suba os serviços
 docker-compose up --build
 ```
-
-### Acesse
-
-- Gateway: [http://localhost:3000](http://localhost:3000)
-- RabbitMQ Dashboard: [http://localhost:15672](http://localhost:15672)  
-  Usuário: `guest` | Senha: `guest`
-
-### Teste um pedido
-
-```bash
-curl -X POST http://localhost:3000/pedido \
-  -H "Content-Type: application/json" \
-  -d '{"produto": "coxinha", "quantidade": 3}'
-```
-
----
 
 ## 📚 Objetivo Educacional
 
@@ -80,7 +64,7 @@ Futuramente, será expandido para incluir:
 ## 🧠 Autor
 
 Feito por [Adriano Barbosa](https://github.com/seu-usuario)  
-PM, curioso e inconformado com sistemas acoplados 😄
+PM, curioso e inconformado com sistemas acoplados
 
 ---
 
