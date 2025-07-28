@@ -24,3 +24,7 @@ services:
       - "3000:3000"
     depends_on:
       - pedido-service
+  pagamento-csharp:
+    build: ./pagamento-csharp
+    depends_on:
+      - rabbitmq

@@ -1,0 +1,6 @@
+C:\Projetos\microservico-lab\pagamento-csharp\obj\Debug\net9.0\pagamento-csharp.csproj.AssemblyReference.cache
+C:\Projetos\microservico-lab\pagamento-csharp\obj\Debug\net9.0\pagamento-csharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projetos\microservico-lab\pagamento-csharp\obj\Debug\net9.0\pagamento-csharp.AssemblyInfoInputs.cache
+C:\Projetos\microservico-lab\pagamento-csharp\obj\Debug\net9.0\pagamento-csharp.AssemblyInfo.cs
+C:\Projetos\microservico-lab\pagamento-csharp\obj\Debug\net9.0\pagamento-csharp.csproj.CoreCompileInputs.cache
+C:\Projetos\microservico-lab\pagamento-csharp\obj\Debug\net9.0\pagamento-csharp.sourcelink.json

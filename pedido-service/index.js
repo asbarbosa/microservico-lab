@@ -11,7 +11,7 @@ async function conectarFila() {
   try {
     const conexao = await amqp.connect('amqp://rabbitmq');
     canal = await conexao.createChannel();
-    await canal.assertQueue('fila_pedidos');
+    await canal.assertQueue('fila_pedidos', { durable: true });
     console.log('[✔] Conectado ao RabbitMQ e fila criada');
   } catch (erro) {
     console.error('[✖] Erro ao conectar no RabbitMQ:', erro.message);
