@@ -10,6 +10,8 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - rede_microservicos  # <= Faltava isso aqui
 
   pedido-service:
     build: ./pedido-service
@@ -18,13 +20,29 @@ services:
     #  - "4000:4000"
     depends_on:
       - rabbitmq
+    networks:
+      - rede_microservicos  # <= Faltava isso aqui
   api-gateway:
     build: ./api-gateway
     ports:
       - "3000:3000"
     depends_on:
       - pedido-service
+    networks:
+      - rede_microservicos
   pagamento-csharp:
     build: ./pagamento-csharp
     depends_on:
       - rabbitmq
+    networks:
+      - rede_microservicos
+  notificacao-service:
+    build:
+      context: ./notificacao-service
+    depends_on:
+      - rabbitmq
+    networks:
+      - rede_microservicos
+networks:
+  rede_microservicos:
+    driver: bridge

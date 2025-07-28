@@ -12,7 +12,7 @@ class Program
         const int maxTentativas = 10;
         const int intervaloEntreTentativas = 3000;
 
-        IConnection connection = null;
+        IConnection? connection = null;
 
         while (tentativas < maxTentativas)
         {
@@ -53,13 +53,26 @@ class Program
 
         var consumer = new AsyncEventingBasicConsumer(channel);
         consumer.Received += async (model, ea) =>
-        {
-            var body = ea.Body.ToArray();
-            var mensagem = Encoding.UTF8.GetString(body);
-            Console.WriteLine($"[💳] Pagamento recebido: {mensagem}");
+{
+    var body = ea.Body.ToArray();
+    var mensagem = Encoding.UTF8.GetString(body);
+    Console.WriteLine($"[💳] Pagamento recebido: {mensagem}");
 
-            await Task.Yield(); // Para simular async
-        };
+    // Garante que a fila existe
+    channel.QueueDeclare(
+        queue: "fila_notificacoes",
+        durable: true,
+        exclusive: false,
+        autoDelete: false,
+        arguments: null
+    );
+
+    var bodyNotificacao = Encoding.UTF8.GetBytes(mensagem);
+    channel.BasicPublish(exchange: "", routingKey: "fila_notificacoes", basicProperties: null, body: bodyNotificacao);
+
+    await Task.Yield();
+};
+
 
         channel.BasicConsume(queue: "fila_pedidos", autoAck: true, consumer: consumer);
 
